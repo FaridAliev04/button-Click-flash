@@ -1,0 +1,25 @@
+int leds[3] = {8, 9, 10};
+
+void setup() {
+  Serial.begin(9600);
+  for (int i = 0; i < 3; i++) pinMode(leds[i], OUTPUT);
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    char command = Serial.read();
+    if (command == 'S') {
+      String data = Serial.readStringUntil('E');
+      int states[3] = {0, 0, 0};
+      int index = 0;
+      for (int i = 0; i < data.length(); i++) {
+        if (data[i] == '0' || data[i] == '1') {
+          states[index] = data[i] - '0';
+          index++;
+        }
+      }
+      for (int i = 0; i < 3; i++)
+        digitalWrite(leds[i], states[i] == 1 ? HIGH : LOW);
+    }
+  }
+}
