@@ -25,4 +25,4 @@ class ArduinoController:
     def close(self):
         if self.arduino:
             self.arduino.close()
-            print("🔌 Arduino bağlantısı bağlandı.")
+            print("Arduino bağlantısı bağlandı.")
